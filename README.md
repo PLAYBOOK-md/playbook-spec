@@ -1,4 +1,4 @@
-# Playbook Style
+# PLAYBOOK.md
 
 **An open specification for multi-step AI workflows written in plain markdown.**
 
@@ -14,6 +14,14 @@ AI workflows are proliferating across tools, platforms, and frameworks. Most are
 - **Human-readable** — someone can understand what a workflow does just by reading it
 - **Tool-agnostic** — any platform can parse and execute playbooks
 - **Progressively complex** — a linear 3-step pipeline is as valid as a branching workflow with elicitation and tool calls
+
+## Ecosystem
+
+| Repo | Description |
+|------|-------------|
+| **[playbook-spec](https://github.com/PLAYBOOK-MD/playbook-spec)** | This repo — the specification |
+| **[playbook-gallery](https://github.com/PLAYBOOK-MD/playbook-gallery)** | Curated example playbooks |
+| **[playbook-schema](https://github.com/PLAYBOOK-MD/playbook-schema)** | TypeScript types + JSON Schema |
 
 ## Quick Example
 
@@ -96,11 +104,11 @@ The spec is stable for the core format (sections, inputs, steps, branching, dire
 
 ## Contributing
 
-This is early-stage. If you're building AI workflow tooling and want a portable, human-readable format, we'd love your input.
+See [CONTRIBUTING.md](CONTRIBUTING.md) for the full guide. The short version:
 
 - Open an issue to discuss format changes
-- Submit a PR with example playbooks
-- Share your implementation
+- Submit a PR with example playbooks to the [gallery](https://github.com/PLAYBOOK-MD/playbook-gallery)
+- Build an implementation and share it
 
 ## License
 

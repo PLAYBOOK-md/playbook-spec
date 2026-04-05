@@ -1,8 +1,8 @@
-# Playbook Style Specification
+# PLAYBOOK.md Specification
 
 **Version: 0.1.0 (Draft)**
 
-This directory contains the Playbook Style specification — an open format for defining multi-step AI workflows in plain markdown.
+This directory contains the PLAYBOOK.md specification — an open format for defining multi-step AI workflows in plain markdown.
 
 ## Specification Documents
 
