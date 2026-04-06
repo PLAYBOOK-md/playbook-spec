@@ -135,32 +135,89 @@ For `select`: the first quoted string is the prompt, and all subsequent quoted s
 
 ## @prompt — External Prompt Reference
 
-References a prompt from an external library or prompt management system. The referenced prompt's content is prepended to the step content during execution.
+References prompt content from an external source and prepends it to the step's prompt text during execution. Supports multiple resolution schemes and dynamic variable-based prompts.
 
 ### Syntax
 
 ```
-@prompt(library:ID)
+@prompt(scheme:identifier)
+@prompt(identifier)
+@prompt({{variable}})
 ```
 
 ### Regex
 
 ```regex
-^@prompt\(library:([a-zA-Z0-9\-]+)\)$
+^@prompt\((.+)\)$
 ```
+
+The argument is parsed in stages:
+
+1. **Variable reference:** If the argument matches `^\{\{(\w+)\}\}$`, resolve as a dynamic prompt from the named variable's content.
+2. **Scheme reference:** If the argument contains `:`, split on the first `:`. Left side is the scheme, right side is the identifier.
+3. **Bare identifier:** Otherwise, treat as a bare identifier. The implementation decides how to resolve it.
+
+### Standard Schemes
+
+| Scheme | Identifier Pattern | Resolves To |
+|--------|-------------------|-------------|
+| `library` | `[a-zA-Z0-9\-]+` | Prompt content from a prompt management system |
+| `file` | Relative path (no `..`, no absolute paths) | Content of a local file relative to the playbook |
+| `mcp` | `server/prompt-name` | MCP prompt resource from a connected server |
+
+Implementations MAY support additional custom schemes. Unrecognized schemes produce a **warning** and the directive is ignored (the step runs with its own content only).
+
+### Variable Interpolation in Identifiers
+
+Scheme identifiers support `{{variable}}` interpolation, resolved at execution time:
+
+```markdown
+@prompt(library:{{prompt_id}})
+@prompt(file:prompts/{{review_type}}-criteria.md)
+@prompt(mcp:{{server}}/{{prompt_name}})
+```
+
+### Dynamic Prompts from Variables
+
+The `{{variable}}` form uses a variable's content directly as the prepended prompt text. The variable must be a declared input or a prior `@output` capture.
+
+```markdown
+## STEP 1: Generate Review Criteria
+
+You are a prompt engineer. Write a detailed code review prompt
+that checks for {{language}}-specific security vulnerabilities.
+
+@output(review_prompt)
+
+## STEP 2: Execute Review
+
+@prompt({{review_prompt}})
+
+Apply the review criteria above to the following code:
+{{code}}
+```
+
+**Execution:** Step 1 runs, the AI generates review criteria, stored as `review_prompt`. Step 2 runs, the content of `review_prompt` is prepended to the step's prompt text. The AI for Step 2 sees the generated criteria followed by "Apply the review criteria above to the following code:".
+
+This enables meta-prompting chains where one step generates the instructions for a subsequent step.
 
 ### Behavior
 
-- The prompt identified by `ID` is fetched at execution time (always the latest version)
-- Its content is prepended to the step's prompt text
-- If the referenced prompt doesn't exist, the step executes with its own content only (no error)
+- Resolved content is **prepended** to the step's prompt text, separated by a blank line
 - One `@prompt` per step (last one wins if duplicated)
+- Resolution happens at step execution time (always the latest version for external sources)
 
-### ID Format
+### Failure Behavior
 
-`[a-zA-Z0-9\-]+` — letters, digits, and hyphens.
+| Source | On Failure |
+|--------|-----------|
+| `scheme:identifier` | **Warning** — step runs with its own content only |
+| Bare identifier | Implementation decides |
+| `{{variable}}` | **Error** if variable is undefined; empty content if variable is empty string |
 
-### Example
+### Examples
+
+**Prompt library reference (prompt management system):**
 
 ```markdown
 ## STEP 1: Security Review
@@ -171,9 +228,67 @@ Apply the review criteria above to the following code:
 {{code}}
 ```
 
-### Implementation Note
+**Local file reference:**
 
-The `@prompt` directive assumes an external prompt storage system. Implementations that don't have a prompt library may ignore this directive or treat the ID as a file path. The spec does not prescribe how prompts are stored or retrieved — only the reference syntax.
+```markdown
+## STEP 1: Review
+
+@prompt(file:prompts/review-template.md)
+
+Review the following {{language}} code:
+{{code}}
+```
+
+**MCP prompt resource:**
+
+```markdown
+## STEP 1: Analyze
+
+@prompt(mcp:prompt-server/code-analysis)
+
+Analyze this codebase for {{concern}}.
+```
+
+**User-supplied prompt via input:**
+
+```markdown
+## INPUTS
+
+- `custom_prompt` (text): Analysis instructions to apply
+- `code` (text): Code to analyze
+
+## STEP 1: Analyze
+
+@prompt({{custom_prompt}})
+
+Apply the analysis above to:
+{{code}}
+```
+
+**Meta-prompting chain (AI generates the prompt for a subsequent step):**
+
+```markdown
+## STEP 1: Generate Prompt
+
+Based on the review type "{{review_type}}", generate a focused
+review prompt with specific criteria and a scoring rubric.
+
+@output(generated_prompt)
+
+## STEP 2: Apply Review
+
+@prompt({{generated_prompt}})
+
+Score the following code against the criteria above:
+{{code}}
+```
+
+### Implementation Notes
+
+- **Scheme registry:** Implementations SHOULD document which schemes they support. The spec defines `library`, `file`, and `mcp` as standard schemes.
+- **File scheme security:** Implementations MUST restrict `file:` paths to prevent directory traversal. Only relative paths from the playbook's location should be resolved. Absolute paths and `..` traversal MUST be rejected.
+- **Variable timing:** `{{variable}}` in `@prompt` is resolved at step execution time, after all prior steps have completed.
+- **Caching:** Implementations MAY cache resolved prompts within a single execution run.
 
 ---
 
