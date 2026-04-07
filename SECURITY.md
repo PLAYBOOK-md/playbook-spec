@@ -21,7 +21,7 @@ Please include:
 ## Scope
 
 This policy covers:
-- The Playbook Style specification (`playbook-spec`)
+- The PLAYBOOK.md specification (`playbook-spec`)
 - Official SDKs and tools maintained under the PLAYBOOK-MD organization
 - The playbook.style website and infrastructure
 

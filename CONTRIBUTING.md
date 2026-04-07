@@ -1,6 +1,6 @@
-# Contributing to Playbook Style
+# Contributing to PLAYBOOK.md
 
-Thank you for your interest in contributing to the Playbook Style specification.
+Thank you for your interest in contributing to the PLAYBOOK.md specification.
 
 ## Ways to Contribute
 

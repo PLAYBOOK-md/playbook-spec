@@ -1,6 +1,6 @@
 # Design Principles
 
-These principles guide all decisions about the Playbook Style specification. When evaluating proposals, ask whether they align with these values.
+These principles guide all decisions about the PLAYBOOK.md specification. When evaluating proposals, ask whether they align with these values.
 
 ## 1. Plain Text Over Proprietary Formats
 

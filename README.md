@@ -8,7 +8,7 @@ The format is deliberately simple: if you can write a README, you can write a pl
 
 ## Why a Specification?
 
-AI workflows are proliferating across tools, platforms, and frameworks. Most are locked into proprietary formats, visual builders, or complex DSLs. Playbook Style proposes a different approach:
+AI workflows are proliferating across tools, platforms, and frameworks. Most are locked into proprietary formats, visual builders, or complex DSLs. PLAYBOOK.md proposes a different approach:
 
 - **Markdown-native** — diffs cleanly in version control, readable without special tooling
 - **Human-readable** — someone can understand what a workflow does just by reading it
