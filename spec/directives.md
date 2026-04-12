@@ -4,20 +4,47 @@ Directives are special annotation lines within steps (or sub-steps) that control
 
 ## @output — Capture Step Output
 
-Captures the AI response from a step as a named variable, making it available to downstream steps and branch conditions.
+Captures the AI response from a step as a named variable, making it available to downstream steps and branch conditions. Optionally annotates the output with a type.
 
 ### Syntax
 
 ```
 @output(varname)
+@output(varname: type)
+@output(varname: enum, "option1", "option2")
 @output(varname, extract:"field")
+@output(varname: type, extract:"field")
 ```
 
 ### Regex
 
 ```regex
-^@output\((\w+)(?:,\s*extract:"(\w+)")?\)$
+^@output\((\w+)(?:\s*:\s*(\w+))?((?:,\s*"[^"]*")*)?(?:,\s*extract:"(\w+)")?\)\s*$
 ```
+
+- Group 1: `varname` — variable name (required)
+- Group 2: `type` — output type (optional)
+- Group 3: enum values — repeated `, "value"` patterns (optional, only for `enum` type)
+- Group 4: `field` — JSON field to extract (optional)
+
+### Output Types
+
+| Type | Aliases | Description |
+|------|---------|-------------|
+| *(omitted)* | — | Untyped — full response stored as string (default) |
+| `string` | *(unrecognized types default here)* | Single-line string value |
+| `text` | — | Multi-line text value |
+| `number` | `num`, `int`, `float` | Numeric value |
+| `boolean` | `bool` | Boolean value (`true` / `false`) |
+| `enum` | `select`, `choice` | One of a set of predefined string values |
+| `json` | — | Structured JSON value |
+
+Type matching is case-insensitive. Type aliases resolve identically to the input type system. Unrecognized types resolve to `string`.
+
+The type annotation is metadata. It does not change how the step executes — the AI response is always captured as a string. Implementations use the type for:
+- **UI rendering** (displaying a number vs. a text block)
+- **Runtime coercion** (parsing `"42"` as a number)
+- **Downstream hints** (informing branch logic or artifact handling)
 
 ### Basic Capture
 
@@ -32,6 +59,45 @@ Classify this issue as "bug", "feature", or "question": {{issue}}
 ```
 
 After execution, `issue_type` contains the full response text from Step 1.
+
+### Typed Capture
+
+Annotates the output with an expected type:
+
+```markdown
+## STEP 1: Count Items
+
+Count the number of items in the following list: {{items}}
+Respond with just the number.
+
+@output(count: number)
+```
+
+### Enum Capture
+
+Constrains the expected output to one of a set of predefined values:
+
+```markdown
+## STEP 1: Classify Sentiment
+
+Analyze the sentiment. Respond with exactly one word.
+
+@output(sentiment: enum, "positive", "negative", "neutral")
+```
+
+Enum values must be double-quoted strings, comma-separated after the type.
+
+### JSON Capture
+
+Indicates the output should be a structured JSON value:
+
+```markdown
+## STEP 1: Analyze
+
+Respond with a JSON object containing your analysis.
+
+@output(analysis: json)
+```
 
 ### Field Extraction
 
@@ -48,11 +114,18 @@ Analyze the severity. Include a JSON object with your assessment:
 
 The implementation scans the response (bottom-up) for a JSON object containing the specified field. If extraction fails, the full response is stored as a fallback.
 
+Type and extract can be combined:
+
+```markdown
+@output(level: string, extract:"level")
+```
+
 ### Rules
 
 - One `@output` per step (last one wins if duplicated)
 - Variable name pattern: `\w+` (letters, digits, underscores)
 - Extract field pattern: `\w+`
+- Type is optional; omitting it preserves backward compatibility
 - Named outputs are available to:
   - Branch conditions in subsequent steps
   - `{{varname}}` interpolation in subsequent steps

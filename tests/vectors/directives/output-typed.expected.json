@@ -1,0 +1,50 @@
+{
+  "valid": true,
+  "definition": {
+    "title": "Typed Output Test",
+    "description": "",
+    "system_prompt": "",
+    "inputs": [],
+    "steps": [
+      {
+        "number": 1,
+        "label": "1",
+        "title": "Count",
+        "content": "Count the items.",
+        "output_var": "count",
+        "output_type": "number",
+        "output_options": null,
+        "extract_field": "",
+        "is_branching": false,
+        "line": 3
+      },
+      {
+        "number": 2,
+        "label": "2",
+        "title": "Classify",
+        "content": "Classify the result.",
+        "output_var": "category",
+        "output_type": "string",
+        "output_options": null,
+        "extract_field": "",
+        "is_branching": false,
+        "line": 9
+      },
+      {
+        "number": 3,
+        "label": "3",
+        "title": "Analyze",
+        "content": "Analyze and return JSON.",
+        "output_var": "analysis",
+        "output_type": "json",
+        "output_options": null,
+        "extract_field": "",
+        "is_branching": false,
+        "line": 15
+      }
+    ],
+    "artifact_type": ""
+  },
+  "warnings": [],
+  "errors": []
+}

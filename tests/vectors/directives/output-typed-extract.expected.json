@@ -1,0 +1,26 @@
+{
+  "valid": true,
+  "definition": {
+    "title": "Typed Extract Test",
+    "description": "",
+    "system_prompt": "",
+    "inputs": [],
+    "steps": [
+      {
+        "number": 1,
+        "label": "1",
+        "title": "Analyze",
+        "content": "Return a JSON object with your analysis.",
+        "output_var": "level",
+        "output_type": "string",
+        "output_options": null,
+        "extract_field": "severity",
+        "is_branching": false,
+        "line": 3
+      }
+    ],
+    "artifact_type": ""
+  },
+  "warnings": [],
+  "errors": []
+}

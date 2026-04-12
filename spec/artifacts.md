@@ -28,6 +28,18 @@ type: markdown
 
 Type matching is case-insensitive.
 
+### Dynamic Type
+
+The artifact type supports `{{variable}}` interpolation, resolved at execution time:
+
+```markdown
+## ARTIFACTS
+
+type: {{output_format}}
+```
+
+The variable must be a declared input or a prior `@output` capture. The resolved value must be one of the valid types listed below.
+
 ## Valid Types
 
 | Type | Description | Typical Use |
@@ -50,6 +62,7 @@ The artifact type is **metadata only** — it does not change how steps execute.
 - **Download**: The type suggests an appropriate file extension (`.md`, `.json`, `.html`, etc.)
 - **Validation**: Implementations may validate that the final step output conforms to the declared type
 - **Routing**: Output delivery systems can format payloads based on the artifact type
+- **Dynamic resolution**: If the type contains `{{variable}}`, it is resolved at execution time from inputs or named outputs
 
 ## Default
 
@@ -79,6 +92,22 @@ type: json
 ## ARTIFACTS
 
 type: mermaid
+```
+
+### Dynamic Format Selection
+
+```markdown
+## INPUTS
+
+- `output_format` (enum: markdown, json, html_css): Desired format
+
+## STEP 1: Generate
+
+Create the report content.
+
+## ARTIFACTS
+
+type: {{output_format}}
 ```
 
 ## Future Considerations

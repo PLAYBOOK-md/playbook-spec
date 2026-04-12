@@ -65,6 +65,8 @@ Pattern: `[a-zA-Z][a-zA-Z0-9_]*`
 
 Type matching is case-insensitive. Any unrecognized type string defaults to `string`.
 
+> **Note:** The `json` type is valid for `@output` annotations but is not a standard input type. If `json` is encountered as an input type, it resolves to `string`.
+
 ## Defaults
 
 A default value is specified after a colon inside the parentheses:

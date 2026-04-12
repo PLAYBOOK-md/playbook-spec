@@ -115,6 +115,9 @@ For each `.playbook.md` file:
 | directives | output-field | directives.md | @output(var, extract:"field") |
 | directives | prompt-ref | directives.md | @prompt(scheme:id) reference |
 | directives | elicit | directives.md | @elicit types (input, confirm, select) |
+| directives | output-typed | directives.md | @output(var: type) typed capture (number, string, json) |
+| directives | output-enum | directives.md | @output(var: enum, "opt1", "opt2") enum capture |
+| directives | output-typed-extract | directives.md | @output(var: type, extract:"field") typed + extract |
 | directives | tool-call | directives.md | @tool(conn, name, {args}) |
 | directives | artifact | artifacts.md | Artifact type declaration |
 | branching | if-else | branching.md | Simple if/else branch |
