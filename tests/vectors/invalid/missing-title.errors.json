@@ -1,0 +1,10 @@
+{
+  "valid": false,
+  "definition": null,
+  "errors": [
+    {
+      "message": "No title found: document must contain a level-1 heading (# Title)"
+    }
+  ],
+  "warnings": []
+}

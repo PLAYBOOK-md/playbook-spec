@@ -1,0 +1,85 @@
+{
+  "valid": true,
+  "definition": {
+    "title": "Interactive Report Builder",
+    "description": "Build a report with human checkpoints at key decision points.",
+    "system_prompt": "",
+    "inputs": [
+      {
+        "name": "data_source",
+        "type": "string",
+        "description": "Data to analyze",
+        "required": true,
+        "line": 7
+      }
+    ],
+    "steps": [
+      {
+        "number": 1,
+        "label": "1",
+        "title": "Initial Analysis",
+        "content": "Analyze {{data_source}} and present the top 5 findings with supporting data.",
+        "output_var": "findings",
+        "extract_field": "",
+        "is_branching": false,
+        "line": 9
+      },
+      {
+        "number": 2,
+        "label": "2",
+        "title": "Get Feedback",
+        "content": "",
+        "output_var": "",
+        "extract_field": "",
+        "elicitation": {
+          "type": "input",
+          "prompt": "Review the findings above. What additional aspects should be explored?"
+        },
+        "is_branching": false,
+        "line": 15
+      },
+      {
+        "number": 3,
+        "label": "3",
+        "title": "Approval Gate",
+        "content": "",
+        "output_var": "",
+        "extract_field": "",
+        "elicitation": {
+          "type": "confirm",
+          "prompt": "The expanded analysis is complete. Approve for final report generation?"
+        },
+        "is_branching": false,
+        "line": 19
+      },
+      {
+        "number": 4,
+        "label": "4",
+        "title": "Choose Format",
+        "content": "",
+        "output_var": "chosen_format",
+        "extract_field": "",
+        "elicitation": {
+          "type": "select",
+          "prompt": "What format should the final report use?",
+          "options": ["Executive Summary", "Detailed Technical", "Visual Dashboard"]
+        },
+        "is_branching": false,
+        "line": 23
+      },
+      {
+        "number": 5,
+        "label": "5",
+        "title": "Generate Report",
+        "content": "Generate the final report on {{data_source}} in {{chosen_format}} format, incorporating all findings and feedback.",
+        "output_var": "",
+        "extract_field": "",
+        "is_branching": false,
+        "line": 28
+      }
+    ],
+    "artifact_type": ""
+  },
+  "warnings": [],
+  "errors": []
+}

@@ -1,0 +1,61 @@
+{
+  "valid": true,
+  "definition": {
+    "title": "Input Types Demo",
+    "description": "Demonstrates all five input types supported by the spec.",
+    "system_prompt": "",
+    "inputs": [
+      {
+        "name": "name",
+        "type": "string",
+        "description": "A single-line text value",
+        "required": true,
+        "line": 7
+      },
+      {
+        "name": "bio",
+        "type": "text",
+        "description": "A multi-line biography",
+        "required": true,
+        "line": 8
+      },
+      {
+        "name": "age",
+        "type": "number",
+        "description": "Numeric age value",
+        "required": true,
+        "line": 9
+      },
+      {
+        "name": "active",
+        "type": "boolean",
+        "description": "Whether the profile is active",
+        "required": true,
+        "line": 10
+      },
+      {
+        "name": "role",
+        "type": "enum",
+        "options": ["admin", "editor", "viewer"],
+        "description": "User role selection",
+        "required": true,
+        "line": 11
+      }
+    ],
+    "steps": [
+      {
+        "number": 1,
+        "label": "1",
+        "title": "Display Profile",
+        "content": "Create a formatted profile card for {{name}}.\n\nBio: {{bio}}\nAge: {{age}}\nActive: {{active}}\nRole: {{role}}\n\nFormat it as a clean markdown card with all fields labeled.",
+        "output_var": "",
+        "extract_field": "",
+        "is_branching": false,
+        "line": 13
+      }
+    ],
+    "artifact_type": ""
+  },
+  "warnings": [],
+  "errors": []
+}

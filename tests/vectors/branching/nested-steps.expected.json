@@ -1,0 +1,147 @@
+{
+  "valid": true,
+  "definition": {
+    "title": "Content Adaptation Pipeline",
+    "description": "Adapt content for different platforms, with multiple sub-steps per branch.",
+    "system_prompt": "",
+    "inputs": [
+      {
+        "name": "content",
+        "type": "text",
+        "description": "Original content to adapt",
+        "required": true,
+        "line": 7
+      },
+      {
+        "name": "platform",
+        "type": "enum",
+        "options": ["blog", "social", "email"],
+        "description": "Target platform",
+        "required": true,
+        "line": 8
+      }
+    ],
+    "steps": [
+      {
+        "number": 1,
+        "label": "1",
+        "title": "Analyze Content",
+        "content": "Analyze the following content and identify:\n- Core message and key points\n- Tone and voice characteristics\n- Target audience signals\n\n{{content}}",
+        "output_var": "content_analysis",
+        "extract_field": "",
+        "is_branching": false,
+        "line": 10
+      },
+      {
+        "number": 2,
+        "label": "2",
+        "title": "Adapt for Platform",
+        "content": "",
+        "output_var": "",
+        "extract_field": "",
+        "is_branching": true,
+        "branches": [
+          {
+            "condition": {
+              "variable": "platform",
+              "operator": "==",
+              "value": "blog",
+              "source": "input"
+            },
+            "steps": [
+              {
+                "number": 2,
+                "label": "2a",
+                "title": "Blog Structure",
+                "content": "Restructure the content for a blog format:\n- Create an engaging headline\n- Write a hook opening paragraph\n- Organize into scannable sections with subheadings\n- Add a call-to-action conclusion",
+                "output_var": "blog_structure",
+                "extract_field": "",
+                "is_branching": false,
+                "line": 25
+              },
+              {
+                "number": 2,
+                "label": "2b",
+                "title": "Blog SEO",
+                "content": "Optimize the blog post for search engines:\n- Suggest 5 target keywords\n- Write a meta description (155 characters max)\n- Add internal linking suggestions\n- Recommend image alt text",
+                "output_var": "",
+                "extract_field": "",
+                "is_branching": false,
+                "line": 35
+              }
+            ]
+          },
+          {
+            "condition": {
+              "variable": "platform",
+              "operator": "!=",
+              "value": "email",
+              "source": "input"
+            },
+            "steps": [
+              {
+                "number": 2,
+                "label": "2c",
+                "title": "Social Media Copy",
+                "content": "Create social media versions of the content:\n- Twitter/X post (280 characters max)\n- LinkedIn post (professional tone, 1-3 paragraphs)\n- Instagram caption (with emoji and hashtag suggestions)",
+                "output_var": "social_posts",
+                "extract_field": "",
+                "is_branching": false,
+                "line": 45
+              },
+              {
+                "number": 2,
+                "label": "2d",
+                "title": "Social Media Hashtags",
+                "content": "Generate a hashtag strategy:\n- 5 primary hashtags (high relevance)\n- 10 secondary hashtags (broader reach)\n- 3 trending hashtags to consider",
+                "output_var": "",
+                "extract_field": "",
+                "is_branching": false,
+                "line": 54
+              }
+            ]
+          },
+          {
+            "condition": null,
+            "steps": [
+              {
+                "number": 2,
+                "label": "2e",
+                "title": "Email Draft",
+                "content": "Convert the content into an email format:\n- Subject line (50 characters max) with A/B variant\n- Preview text (90 characters max)\n- Email body with clear sections\n- CTA button text suggestion",
+                "output_var": "email_draft",
+                "extract_field": "",
+                "is_branching": false,
+                "line": 63
+              },
+              {
+                "number": 2,
+                "label": "2f",
+                "title": "Email Personalization",
+                "content": "Suggest personalization tokens and segmentation:\n- Variable fields for personalization\n- Audience segments this would work best for\n- Send time recommendations",
+                "output_var": "",
+                "extract_field": "",
+                "is_branching": false,
+                "line": 73
+              }
+            ]
+          }
+        ],
+        "line": 21
+      },
+      {
+        "number": 3,
+        "label": "3",
+        "title": "Quality Check",
+        "content": "Review the adapted content for:\n- Message consistency with the original\n- Platform-appropriate formatting\n- Grammar and clarity\n- Completeness of all required elements\n\nProvide a final quality score (1-10) and any recommended fixes.",
+        "output_var": "",
+        "extract_field": "",
+        "is_branching": false,
+        "line": 82
+      }
+    ],
+    "artifact_type": ""
+  },
+  "warnings": [],
+  "errors": []
+}

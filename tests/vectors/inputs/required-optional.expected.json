@@ -1,0 +1,63 @@
+{
+  "valid": true,
+  "definition": {
+    "title": "Email Drafter",
+    "description": "Draft a professional email with configurable parameters.",
+    "system_prompt": "",
+    "inputs": [
+      {
+        "name": "recipient",
+        "type": "string",
+        "description": "Who the email is addressed to",
+        "required": true,
+        "line": 7
+      },
+      {
+        "name": "subject_line",
+        "type": "string",
+        "description": "Email subject",
+        "required": true,
+        "line": 8
+      },
+      {
+        "name": "tone",
+        "type": "string",
+        "default": "professional",
+        "description": "Writing tone to use",
+        "required": false,
+        "line": 9
+      },
+      {
+        "name": "max_length",
+        "type": "number",
+        "default": "200",
+        "description": "Maximum word count",
+        "required": false,
+        "line": 10
+      },
+      {
+        "name": "include_signature",
+        "type": "boolean",
+        "default": "true",
+        "description": "Whether to add a closing signature",
+        "required": false,
+        "line": 11
+      }
+    ],
+    "steps": [
+      {
+        "number": 1,
+        "label": "1",
+        "title": "Draft Email",
+        "content": "Write an email to {{recipient}} with subject \"{{subject_line}}\".\n\nUse a {{tone}} tone and keep it under {{max_length}} words.\n\nInclude a signature: {{include_signature}}.",
+        "output_var": "",
+        "extract_field": "",
+        "is_branching": false,
+        "line": 13
+      }
+    ],
+    "artifact_type": ""
+  },
+  "warnings": [],
+  "errors": []
+}

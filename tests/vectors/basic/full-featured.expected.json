@@ -1,0 +1,150 @@
+{
+  "valid": true,
+  "definition": {
+    "title": "Full-Featured Workflow",
+    "description": "A comprehensive playbook demonstrating every spec feature for conformance testing.",
+    "system_prompt": "You are a meticulous analyst. Always provide evidence-based reasoning with clear structure. Cite specifics rather than generalizations.",
+    "inputs": [
+      {
+        "name": "topic",
+        "type": "string",
+        "description": "Subject to analyze",
+        "required": true,
+        "line": 11
+      },
+      {
+        "name": "detail_level",
+        "type": "enum",
+        "options": ["brief", "standard", "comprehensive"],
+        "description": "How much detail to include",
+        "required": true,
+        "line": 12
+      },
+      {
+        "name": "max_items",
+        "type": "number",
+        "default": "5",
+        "description": "Maximum items to return",
+        "required": false,
+        "line": 13
+      },
+      {
+        "name": "include_sources",
+        "type": "boolean",
+        "default": "true",
+        "description": "Whether to include source references",
+        "required": false,
+        "line": 14
+      }
+    ],
+    "steps": [
+      {
+        "number": 1,
+        "label": "1",
+        "title": "Research",
+        "content": "Research {{topic}} and identify the top {{max_items}} most important aspects.\n\nFor each aspect provide:\n- A clear title\n- A one-paragraph explanation\n- Relevance rating (high, medium, low)",
+        "output_var": "research_results",
+        "extract_field": "",
+        "is_branching": false,
+        "line": 16
+      },
+      {
+        "number": 2,
+        "label": "2",
+        "title": "Evaluate",
+        "content": "",
+        "output_var": "",
+        "extract_field": "",
+        "is_branching": true,
+        "branches": [
+          {
+            "condition": {
+              "variable": "detail_level",
+              "operator": "==",
+              "value": "comprehensive",
+              "source": "input"
+            },
+            "steps": [
+              {
+                "number": 2,
+                "label": "2a",
+                "title": "Deep Evaluation",
+                "content": "Perform an exhaustive evaluation of each aspect of {{topic}} identified above.\n\nFor every item, provide:\n1. Strengths with supporting evidence\n2. Weaknesses and risk factors\n3. Comparative analysis against alternatives\n4. Long-term outlook (3-5 year horizon)",
+                "output_var": "evaluation",
+                "extract_field": "",
+                "is_branching": false,
+                "line": 31
+              }
+            ]
+          },
+          {
+            "condition": {
+              "variable": "detail_level",
+              "operator": "==",
+              "value": "brief",
+              "source": "input"
+            },
+            "steps": [
+              {
+                "number": 2,
+                "label": "2b",
+                "title": "Quick Summary",
+                "content": "Provide a brief summary table of the findings about {{topic}}.\n\n| Aspect | Rating | One-Line Take |\n|--------|--------|---------------|",
+                "output_var": "evaluation",
+                "extract_field": "",
+                "is_branching": false,
+                "line": 45
+              }
+            ]
+          },
+          {
+            "condition": null,
+            "steps": [
+              {
+                "number": 2,
+                "label": "2c",
+                "title": "Standard Evaluation",
+                "content": "Evaluate each aspect of {{topic}} with balanced detail:\n- Key strengths\n- Key risks\n- Recommendation",
+                "output_var": "evaluation",
+                "extract_field": "",
+                "is_branching": false,
+                "line": 56
+              }
+            ]
+          }
+        ],
+        "line": 27
+      },
+      {
+        "number": 3,
+        "label": "3",
+        "title": "Human Review",
+        "content": "",
+        "output_var": "",
+        "extract_field": "",
+        "elicitation": {
+          "type": "confirm",
+          "prompt": "Does the evaluation look accurate? Proceed to final report?"
+        },
+        "is_branching": false,
+        "line": 67
+      },
+      {
+        "number": 4,
+        "label": "4",
+        "title": "Final Report",
+        "content": "Synthesize everything into a final report on {{topic}}.\n\nStructure the report with:\n1. Executive Summary\n2. Detailed Findings\n3. Recommendations\n4. Next Steps",
+        "prompt_ref": {
+          "prompt_id": "library:report-template"
+        },
+        "output_var": "final_report",
+        "extract_field": "",
+        "is_branching": false,
+        "line": 71
+      }
+    ],
+    "artifact_type": "markdown"
+  },
+  "warnings": [],
+  "errors": []
+}

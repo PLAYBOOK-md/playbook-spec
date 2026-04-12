@@ -1,0 +1,42 @@
+{
+  "valid": true,
+  "definition": {
+    "title": "Sentiment Analyzer",
+    "description": "Analyze text sentiment and use the result in a follow-up step.",
+    "system_prompt": "",
+    "inputs": [
+      {
+        "name": "text",
+        "type": "text",
+        "description": "Text to analyze for sentiment",
+        "required": true,
+        "line": 7
+      }
+    ],
+    "steps": [
+      {
+        "number": 1,
+        "label": "1",
+        "title": "Analyze Sentiment",
+        "content": "Analyze the sentiment of the following text and respond with a single word: \"positive\", \"negative\", or \"neutral\".\n\n{{text}}",
+        "output_var": "sentiment",
+        "extract_field": "",
+        "is_branching": false,
+        "line": 9
+      },
+      {
+        "number": 2,
+        "label": "2",
+        "title": "Generate Response",
+        "content": "The sentiment was classified as {{sentiment}}.\n\nWrite an appropriate response that acknowledges the tone and addresses the content constructively.",
+        "output_var": "",
+        "extract_field": "",
+        "is_branching": false,
+        "line": 17
+      }
+    ],
+    "artifact_type": ""
+  },
+  "warnings": [],
+  "errors": []
+}

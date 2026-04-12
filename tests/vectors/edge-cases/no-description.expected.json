@@ -1,0 +1,40 @@
+{
+  "valid": true,
+  "definition": {
+    "title": "Quick Translate",
+    "description": "",
+    "system_prompt": "",
+    "inputs": [
+      {
+        "name": "text",
+        "type": "text",
+        "description": "Text to translate",
+        "required": true,
+        "line": 4
+      },
+      {
+        "name": "target_lang",
+        "type": "string",
+        "default": "Spanish",
+        "description": "Target language",
+        "required": false,
+        "line": 5
+      }
+    ],
+    "steps": [
+      {
+        "number": 1,
+        "label": "1",
+        "title": "Translate",
+        "content": "Translate the following text into {{target_lang}}:\n\n{{text}}\n\nPreserve the original formatting and tone as closely as possible.",
+        "output_var": "",
+        "extract_field": "",
+        "is_branching": false,
+        "line": 7
+      }
+    ],
+    "artifact_type": ""
+  },
+  "warnings": [],
+  "errors": []
+}

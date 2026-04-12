@@ -1,0 +1,10 @@
+{
+  "valid": false,
+  "definition": null,
+  "errors": [
+    {
+      "message": "No steps found: document must contain at least one ## STEP heading"
+    }
+  ],
+  "warnings": []
+}

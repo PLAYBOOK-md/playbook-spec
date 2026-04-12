@@ -1,0 +1,49 @@
+{
+  "valid": true,
+  "definition": {
+    "title": "Style Guide Generator",
+    "description": "Generate a writing style guide based on selected preferences.",
+    "system_prompt": "",
+    "inputs": [
+      {
+        "name": "format",
+        "type": "enum",
+        "options": ["apa", "mla", "chicago"],
+        "description": "Citation format",
+        "required": true,
+        "line": 7
+      },
+      {
+        "name": "audience",
+        "type": "enum",
+        "options": ["academic", "business", "general"],
+        "description": "Target audience",
+        "required": true,
+        "line": 8
+      },
+      {
+        "name": "complexity",
+        "type": "enum",
+        "options": ["simple", "moderate", "advanced"],
+        "description": "Content complexity level",
+        "required": true,
+        "line": 9
+      }
+    ],
+    "steps": [
+      {
+        "number": 1,
+        "label": "1",
+        "title": "Generate Guide",
+        "content": "Create a concise writing style guide using {{format}} citation format.\n\nTarget audience: {{audience}}\nComplexity level: {{complexity}}\n\nCover:\n- Formatting rules\n- Citation examples\n- Common mistakes to avoid\n- Quick reference cheat sheet",
+        "output_var": "",
+        "extract_field": "",
+        "is_branching": false,
+        "line": 11
+      }
+    ],
+    "artifact_type": ""
+  },
+  "warnings": [],
+  "errors": []
+}

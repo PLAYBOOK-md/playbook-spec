@@ -1,0 +1,60 @@
+{
+  "valid": true,
+  "definition": {
+    "title": "Blog Post Generator",
+    "description": "Create a blog post through research, drafting, and editing stages.",
+    "system_prompt": "You are an experienced content writer who specializes in clear, engaging technical writing. Target a reading level appropriate for software developers.",
+    "inputs": [
+      {
+        "name": "subject",
+        "type": "string",
+        "description": "The blog post topic",
+        "required": true,
+        "line": 11
+      },
+      {
+        "name": "word_target",
+        "type": "number",
+        "default": "1000",
+        "description": "Approximate word count",
+        "required": false,
+        "line": 12
+      }
+    ],
+    "steps": [
+      {
+        "number": 1,
+        "label": "1",
+        "title": "Research and Outline",
+        "content": "Research {{subject}} and create a structured outline for a blog post of approximately {{word_target}} words.\n\nInclude:\n- A working title\n- 3-5 main sections with bullet points for each\n- A hook idea for the introduction\n- Key takeaways for the conclusion",
+        "output_var": "outline",
+        "extract_field": "",
+        "is_branching": false,
+        "line": 14
+      },
+      {
+        "number": 2,
+        "label": "2",
+        "title": "Write Draft",
+        "content": "Using the outline above, write a complete blog post draft about {{subject}}.\n\nTarget approximately {{word_target}} words. Use a conversational but authoritative tone. Include code examples where relevant.",
+        "output_var": "draft",
+        "extract_field": "",
+        "is_branching": false,
+        "line": 26
+      },
+      {
+        "number": 3,
+        "label": "3",
+        "title": "Edit and Polish",
+        "content": "Edit the draft for:\n- Technical accuracy\n- Clarity and flow\n- Grammar and consistency\n- Engaging opening and strong closing\n\nOutput the final polished blog post ready for publication.",
+        "output_var": "",
+        "extract_field": "",
+        "is_branching": false,
+        "line": 34
+      }
+    ],
+    "artifact_type": "markdown"
+  },
+  "warnings": [],
+  "errors": []
+}

@@ -1,0 +1,87 @@
+{
+  "valid": true,
+  "definition": {
+    "title": "Document Formatter",
+    "description": "Format a document based on the selected output style.",
+    "system_prompt": "",
+    "inputs": [
+      {
+        "name": "content",
+        "type": "text",
+        "description": "Raw content to format",
+        "required": true,
+        "line": 7
+      },
+      {
+        "name": "style",
+        "type": "enum",
+        "options": ["formal", "casual"],
+        "description": "Output style",
+        "required": true,
+        "line": 8
+      }
+    ],
+    "steps": [
+      {
+        "number": 1,
+        "label": "1",
+        "title": "Format Document",
+        "content": "Take the following content and reformat it:\n\n{{content}}",
+        "output_var": "",
+        "extract_field": "",
+        "is_branching": true,
+        "branches": [
+          {
+            "condition": {
+              "variable": "style",
+              "operator": "==",
+              "value": "formal",
+              "source": "input"
+            },
+            "steps": [
+              {
+                "number": 1,
+                "label": "1a",
+                "title": "Formal Formatting",
+                "content": "Rewrite the content above in a formal, professional style:\n- Use third person perspective\n- Avoid contractions\n- Use precise, technical vocabulary\n- Structure with clear headings and numbered lists",
+                "output_var": "formatted",
+                "extract_field": "",
+                "is_branching": false,
+                "line": 18
+              }
+            ]
+          },
+          {
+            "condition": null,
+            "steps": [
+              {
+                "number": 1,
+                "label": "1b",
+                "title": "Casual Formatting",
+                "content": "Rewrite the content above in a friendly, conversational style:\n- Use first or second person perspective\n- Contractions are fine\n- Keep sentences short and punchy\n- Use bullet points and informal headings",
+                "output_var": "formatted",
+                "extract_field": "",
+                "is_branching": false,
+                "line": 30
+              }
+            ]
+          }
+        ],
+        "line": 10
+      },
+      {
+        "number": 2,
+        "label": "2",
+        "title": "Final Review",
+        "content": "Review the formatted document for consistency and completeness. Fix any issues and output the final version.",
+        "output_var": "",
+        "extract_field": "",
+        "is_branching": false,
+        "line": 42
+      }
+    ],
+    "artifact_type": ""
+  },
+  "warnings": [],
+  "errors": []
+}

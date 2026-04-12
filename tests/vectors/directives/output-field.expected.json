@@ -1,0 +1,42 @@
+{
+  "valid": true,
+  "definition": {
+    "title": "Priority Classifier",
+    "description": "Classify an incoming request and extract a priority level from structured JSON output.",
+    "system_prompt": "",
+    "inputs": [
+      {
+        "name": "request",
+        "type": "text",
+        "description": "The incoming request to classify",
+        "required": true,
+        "line": 7
+      }
+    ],
+    "steps": [
+      {
+        "number": 1,
+        "label": "1",
+        "title": "Classify Priority",
+        "content": "Analyze the following request and determine its priority.\n\n{{request}}\n\nRespond with a JSON object containing your assessment:\n{\"priority\": \"critical\", \"category\": \"infrastructure\", \"confidence\": 0.95}\n\nUse one of: \"critical\", \"high\", \"medium\", \"low\" for priority.",
+        "output_var": "classification",
+        "extract_field": "priority",
+        "is_branching": false,
+        "line": 9
+      },
+      {
+        "number": 2,
+        "label": "2",
+        "title": "Route Request",
+        "content": "The request has been classified with priority: {{classification}}.\n\nBased on this priority level, recommend:\n1. Response SLA (time to first response)\n2. Escalation path\n3. Required team members",
+        "output_var": "",
+        "extract_field": "",
+        "is_branching": false,
+        "line": 22
+      }
+    ],
+    "artifact_type": ""
+  },
+  "warnings": [],
+  "errors": []
+}

@@ -1,0 +1,137 @@
+{
+  "valid": true,
+  "definition": {
+    "title": "Support Ticket Router",
+    "description": "Route a support ticket to the appropriate handling workflow based on its category.",
+    "system_prompt": "",
+    "inputs": [
+      {
+        "name": "ticket",
+        "type": "text",
+        "description": "Support ticket description",
+        "required": true,
+        "line": 7
+      },
+      {
+        "name": "category",
+        "type": "enum",
+        "options": ["billing", "technical", "account", "other"],
+        "description": "Ticket category",
+        "required": true,
+        "line": 8
+      }
+    ],
+    "steps": [
+      {
+        "number": 1,
+        "label": "1",
+        "title": "Classify Urgency",
+        "content": "Read the support ticket and assess its urgency level.\n\n{{ticket}}\n\nRespond with a JSON object: {\"urgency\": \"high\" or \"medium\" or \"low\"}",
+        "output_var": "urgency_level",
+        "extract_field": "urgency",
+        "is_branching": false,
+        "line": 10
+      },
+      {
+        "number": 2,
+        "label": "2",
+        "title": "Handle Ticket",
+        "content": "",
+        "output_var": "",
+        "extract_field": "",
+        "is_branching": true,
+        "branches": [
+          {
+            "condition": {
+              "variable": "category",
+              "operator": "==",
+              "value": "billing",
+              "source": "input"
+            },
+            "steps": [
+              {
+                "number": 2,
+                "label": "2a",
+                "title": "Billing Resolution",
+                "content": "This is a billing-related ticket. Review the issue and provide:\n1. Root cause of the billing discrepancy\n2. Recommended resolution (refund, credit, adjustment)\n3. Steps to prevent recurrence\n4. Customer communication template",
+                "output_var": "",
+                "extract_field": "",
+                "is_branching": false,
+                "line": 24
+              }
+            ]
+          },
+          {
+            "condition": {
+              "variable": "category",
+              "operator": "==",
+              "value": "technical",
+              "source": "input"
+            },
+            "steps": [
+              {
+                "number": 2,
+                "label": "2b",
+                "title": "Technical Investigation",
+                "content": "This is a technical support ticket. Investigate and provide:\n1. Likely root cause based on symptoms described\n2. Diagnostic steps for the support team\n3. Known workarounds if any\n4. Whether engineering escalation is needed",
+                "output_var": "",
+                "extract_field": "",
+                "is_branching": false,
+                "line": 34
+              }
+            ]
+          },
+          {
+            "condition": {
+              "variable": "category",
+              "operator": "==",
+              "value": "account",
+              "source": "input"
+            },
+            "steps": [
+              {
+                "number": 2,
+                "label": "2c",
+                "title": "Account Management",
+                "content": "This is an account-related ticket. Address:\n1. Account status verification steps\n2. Required identity verification process\n3. Resolution path\n4. Policy references if applicable",
+                "output_var": "",
+                "extract_field": "",
+                "is_branching": false,
+                "line": 44
+              }
+            ]
+          },
+          {
+            "condition": null,
+            "steps": [
+              {
+                "number": 2,
+                "label": "2d",
+                "title": "General Support",
+                "content": "This ticket does not fit standard categories. Provide:\n1. Best-effort categorization\n2. Suggested handling team\n3. Draft response to the customer\n4. Recommendation for new category if warranted",
+                "output_var": "",
+                "extract_field": "",
+                "is_branching": false,
+                "line": 54
+              }
+            ]
+          }
+        ],
+        "line": 20
+      },
+      {
+        "number": 3,
+        "label": "3",
+        "title": "Summary",
+        "content": "Write a concise internal summary of the ticket resolution for the support log.",
+        "output_var": "",
+        "extract_field": "",
+        "is_branching": false,
+        "line": 64
+      }
+    ],
+    "artifact_type": ""
+  },
+  "warnings": [],
+  "errors": []
+}

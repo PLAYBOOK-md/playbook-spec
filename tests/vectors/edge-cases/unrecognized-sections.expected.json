@@ -1,0 +1,42 @@
+{
+  "valid": true,
+  "definition": {
+    "title": "Unrecognized Section Test",
+    "description": "A playbook with unknown section headings that should be silently skipped.",
+    "system_prompt": "",
+    "inputs": [
+      {
+        "name": "query",
+        "type": "string",
+        "description": "Search query",
+        "required": true,
+        "line": 17
+      }
+    ],
+    "steps": [
+      {
+        "number": 1,
+        "label": "1",
+        "title": "Search",
+        "content": "Search for information about {{query}} and return the top results.",
+        "output_var": "",
+        "extract_field": "",
+        "is_branching": false,
+        "line": 24
+      },
+      {
+        "number": 2,
+        "label": "2",
+        "title": "Summarize",
+        "content": "Summarize the search results into a concise answer.",
+        "output_var": "",
+        "extract_field": "",
+        "is_branching": false,
+        "line": 33
+      }
+    ],
+    "artifact_type": ""
+  },
+  "warnings": [],
+  "errors": []
+}

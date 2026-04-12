@@ -1,0 +1,50 @@
+{
+  "valid": true,
+  "definition": {
+    "title": "API Schema Generator",
+    "description": "Generate a JSON API schema from a natural language description.",
+    "system_prompt": "",
+    "inputs": [
+      {
+        "name": "api_description",
+        "type": "text",
+        "description": "Description of the API endpoints and data models",
+        "required": true,
+        "line": 7
+      },
+      {
+        "name": "version",
+        "type": "string",
+        "default": "v1",
+        "description": "API version prefix",
+        "required": false,
+        "line": 8
+      }
+    ],
+    "steps": [
+      {
+        "number": 1,
+        "label": "1",
+        "title": "Parse Requirements",
+        "content": "Extract all endpoints, request/response models, and validation rules from:\n\n{{api_description}}\n\nList each endpoint with its HTTP method, path, and data models.",
+        "output_var": "parsed_api",
+        "extract_field": "",
+        "is_branching": false,
+        "line": 10
+      },
+      {
+        "number": 2,
+        "label": "2",
+        "title": "Generate Schema",
+        "content": "Generate a complete OpenAPI 3.0 JSON schema for API version {{version}} based on the parsed requirements.\n\nInclude:\n- All endpoint definitions\n- Request and response schemas\n- Validation constraints\n- Example values for each field\n\nOutput valid JSON only.",
+        "output_var": "",
+        "extract_field": "",
+        "is_branching": false,
+        "line": 20
+      }
+    ],
+    "artifact_type": "json"
+  },
+  "warnings": [],
+  "errors": []
+}

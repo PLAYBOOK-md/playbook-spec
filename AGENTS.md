@@ -624,6 +624,10 @@ type: markdown
 | Invalid elicit type | Unrecognized `@elicit` type |
 | Unrecognized @prompt scheme | Scheme not in `library`, `file`, `mcp` |
 
+## Test Suite
+
+The `tests/` directory contains 23 canonical test vectors for parser and validator implementations. Each vector defines an input `.playbook.md` file and the expected parse result, warnings, or fatal errors. Use these to verify conformance when building or modifying a parser. See `tests/README.md` for the full index.
+
 ## File Conventions
 
 - **Extension:** `.md` or `.playbook.md`

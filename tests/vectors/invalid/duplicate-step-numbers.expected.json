@@ -1,0 +1,49 @@
+{
+  "valid": true,
+  "definition": {
+    "title": "Duplicate Steps Test",
+    "description": "This playbook has two steps that share the same number, which violates sequential numbering.",
+    "system_prompt": "",
+    "inputs": [],
+    "steps": [
+      {
+        "number": 1,
+        "label": "1",
+        "title": "First Step",
+        "content": "Analyze the current situation and identify key factors.",
+        "output_var": "",
+        "extract_field": "",
+        "is_branching": false,
+        "line": 5
+      },
+      {
+        "number": 1,
+        "label": "1",
+        "title": "Duplicate Step",
+        "content": "This step reuses number 1, which should produce a warning.",
+        "output_var": "",
+        "extract_field": "",
+        "is_branching": false,
+        "line": 9
+      },
+      {
+        "number": 2,
+        "label": "2",
+        "title": "Final Step",
+        "content": "Summarize the findings and provide recommendations.",
+        "output_var": "",
+        "extract_field": "",
+        "is_branching": false,
+        "line": 13
+      }
+    ],
+    "artifact_type": ""
+  },
+  "warnings": [
+    {
+      "line": 9,
+      "message": "Non-sequential step number: expected 2, got 1"
+    }
+  ],
+  "errors": []
+}

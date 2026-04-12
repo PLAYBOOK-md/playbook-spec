@@ -1,0 +1,44 @@
+{
+  "valid": true,
+  "definition": {
+    "title": "Empty Step Content",
+    "description": "Test that steps with no body content are handled gracefully.",
+    "system_prompt": "",
+    "inputs": [],
+    "steps": [
+      {
+        "number": 1,
+        "label": "1",
+        "title": "Empty Body",
+        "content": "",
+        "output_var": "",
+        "extract_field": "",
+        "is_branching": false,
+        "line": 5
+      },
+      {
+        "number": 2,
+        "label": "2",
+        "title": "Also Empty",
+        "content": "",
+        "output_var": "",
+        "extract_field": "",
+        "is_branching": false,
+        "line": 7
+      },
+      {
+        "number": 3,
+        "label": "3",
+        "title": "Has Content",
+        "content": "This step actually has content to process.",
+        "output_var": "",
+        "extract_field": "",
+        "is_branching": false,
+        "line": 9
+      }
+    ],
+    "artifact_type": ""
+  },
+  "warnings": [],
+  "errors": []
+}

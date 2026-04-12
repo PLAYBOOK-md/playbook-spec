@@ -1,0 +1,32 @@
+{
+  "valid": true,
+  "definition": {
+    "title": "Whitespace Test",
+    "description": "This playbook has leading blank lines before the title, trailing whitespace on the title, and extra blank lines between sections.",
+    "system_prompt": "You are helpful.",
+    "inputs": [
+      {
+        "name": "topic",
+        "type": "string",
+        "description": "A test topic",
+        "required": true,
+        "line": 17
+      }
+    ],
+    "steps": [
+      {
+        "number": 1,
+        "label": "1",
+        "title": "Process",
+        "content": "Tell me about {{topic}}.\n\nInclude relevant details and examples.",
+        "output_var": "",
+        "extract_field": "",
+        "is_branching": false,
+        "line": 19
+      }
+    ],
+    "artifact_type": ""
+  },
+  "warnings": [],
+  "errors": []
+}

@@ -1,0 +1,53 @@
+{
+  "valid": true,
+  "definition": {
+    "title": "Guided Code Review",
+    "description": "Review code using an external prompt template for consistent criteria.",
+    "system_prompt": "",
+    "inputs": [
+      {
+        "name": "code",
+        "type": "text",
+        "description": "Code to review",
+        "required": true,
+        "line": 7
+      },
+      {
+        "name": "language",
+        "type": "string",
+        "default": "Python",
+        "description": "Programming language",
+        "required": false,
+        "line": 8
+      }
+    ],
+    "steps": [
+      {
+        "number": 1,
+        "label": "1",
+        "title": "Review Code",
+        "content": "Review the following {{language}} code against the criteria above:\n\n{{code}}\n\nProvide findings organized by severity (Critical, High, Medium, Low).",
+        "prompt_ref": {
+          "prompt_id": "library:code-review-criteria"
+        },
+        "output_var": "",
+        "extract_field": "",
+        "is_branching": false,
+        "line": 10
+      },
+      {
+        "number": 2,
+        "label": "2",
+        "title": "Suggestions",
+        "content": "For each finding identified above, provide a specific code fix with a before/after comparison.",
+        "output_var": "",
+        "extract_field": "",
+        "is_branching": false,
+        "line": 20
+      }
+    ],
+    "artifact_type": ""
+  },
+  "warnings": [],
+  "errors": []
+}

@@ -1,0 +1,55 @@
+{
+  "valid": true,
+  "definition": {
+    "title": "Data Pipeline with Tool Integration",
+    "description": "Fetch data from an external source, then analyze it with AI.",
+    "system_prompt": "",
+    "inputs": [
+      {
+        "name": "metric_name",
+        "type": "string",
+        "description": "Name of the metric to fetch",
+        "required": true,
+        "line": 7
+      },
+      {
+        "name": "timeframe",
+        "type": "string",
+        "default": "7d",
+        "description": "Time range for data retrieval",
+        "required": false,
+        "line": 8
+      }
+    ],
+    "steps": [
+      {
+        "number": 1,
+        "label": "1",
+        "title": "Fetch Metrics",
+        "content": "",
+        "output_var": "metrics_data",
+        "extract_field": "",
+        "tool_call": {
+          "connection_name": "analytics_server",
+          "tool_name": "get_metrics",
+          "arguments": "{\"metric\": \"{{metric_name}}\", \"period\": \"{{timeframe}}\", \"format\": \"json\"}"
+        },
+        "is_branching": false,
+        "line": 10
+      },
+      {
+        "number": 2,
+        "label": "2",
+        "title": "Analyze Trends",
+        "content": "Using the metrics data for {{metric_name}} over the last {{timeframe}}, identify:\n\n1. Overall trend direction (increasing, decreasing, stable)\n2. Notable anomalies or outliers\n3. Seasonal patterns if any\n4. Predicted trajectory for the next period\n\nProvide specific numbers and percentages where possible.",
+        "output_var": "",
+        "extract_field": "",
+        "is_branching": false,
+        "line": 15
+      }
+    ],
+    "artifact_type": ""
+  },
+  "warnings": [],
+  "errors": []
+}

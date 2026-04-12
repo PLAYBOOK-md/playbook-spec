@@ -1,0 +1,24 @@
+{
+  "valid": true,
+  "definition": {
+    "title": "Summarize Text",
+    "description": "",
+    "system_prompt": "",
+    "inputs": [],
+    "steps": [
+      {
+        "number": 1,
+        "label": "1",
+        "title": "Summarize",
+        "content": "Read the following text and produce a concise summary capturing the key points in 2-3 sentences.",
+        "output_var": "",
+        "extract_field": "",
+        "is_branching": false,
+        "line": 3
+      }
+    ],
+    "artifact_type": ""
+  },
+  "warnings": [],
+  "errors": []
+}

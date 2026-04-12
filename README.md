@@ -22,6 +22,13 @@ AI workflows are proliferating across tools, platforms, and frameworks. Most are
 | **[playbook-spec](https://github.com/PLAYBOOK-MD/playbook-spec)** | This repo — the specification |
 | **[playbook-gallery](https://github.com/PLAYBOOK-MD/playbook-gallery)** | Curated example playbooks |
 | **[playbook-schema](https://github.com/PLAYBOOK-MD/playbook-schema)** | TypeScript types + JSON Schema |
+| **[playbook-integrations](https://github.com/PLAYBOOK-MD/playbook-integrations)** | SDKs (TS, Python, Go), MCP server, Agent Skills, Editor configs |
+| **[playbook-playground](https://github.com/PLAYBOOK-MD/playbook-playground)** | Web-based editor and validator |
+| **[playbook-cli](https://github.com/PLAYBOOK-MD/playbook-cli)** | CLI tool for validating, parsing, and scaffolding playbooks |
+| **[playbook-vscode](https://github.com/PLAYBOOK-MD/playbook-vscode)** | VS Code extension with syntax highlighting and validation |
+| **[playbook-action](https://github.com/PLAYBOOK-MD/playbook-action)** | GitHub Action for PR validation |
+| **[playbook-docs](https://github.com/PLAYBOOK-MD/playbook-docs)** | Documentation site (docs.playbook.style) |
+| **[playbook-site](https://github.com/PLAYBOOK-MD/playbook-site)** | Landing page (playbook.style) |
 
 ## Quick Example
 
@@ -83,6 +90,30 @@ See [`examples/`](examples/) for complete playbooks demonstrating common pattern
 - [Branching on Input](examples/adaptive-review.md) — conditional paths based on user input
 - [Branching on AI Output](examples/issue-triage.md) — routing based on AI classification
 - [Human-in-the-Loop](examples/decision-matrix.md) — elicitation checkpoints and tool calls
+
+## Test Suite
+
+The [`tests/`](tests/) directory contains 23 canonical test vectors for validating parser and validator implementations. Each test vector defines an input `.playbook.md` file and the expected parse result or error. See [`tests/README.md`](tests/README.md) for details.
+
+## Tooling
+
+### CLI
+
+```bash
+npm install -g @playbook-md/cli
+```
+
+### VS Code Extension
+
+```bash
+code --install-extension playbook-md.playbook-vscode
+```
+
+### GitHub Action
+
+```yaml
+- uses: PLAYBOOK-MD/playbook-action@v1
+```
 
 ## Design Principles
 
