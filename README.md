@@ -1,5 +1,10 @@
 # PLAYBOOK.md
 
+[![License: CC BY 4.0](https://img.shields.io/badge/License-CC_BY_4.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/)
+[![GitHub stars](https://img.shields.io/github/stars/PLAYBOOK-MD/playbook-spec)](https://github.com/PLAYBOOK-MD/playbook-spec/stargazers)
+[![Spec](https://img.shields.io/badge/spec-v0.1.0--draft-blue)](https://github.com/PLAYBOOK-MD/playbook-spec)
+[![Website](https://img.shields.io/badge/website-playbook.style-FF5F1F)](https://playbook.style)
+
 **An open specification for multi-step AI workflows written in plain markdown.**
 
 Playbooks are structured documents that define repeatable AI workflows. Each playbook chains multiple prompts together with input variables, conditional branching, human-in-the-loop checkpoints, and context accumulation across steps.
