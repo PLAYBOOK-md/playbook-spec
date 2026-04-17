@@ -138,7 +138,7 @@ Playbooks run in a variety of environments: CLI tools, MCP servers embedded in e
 
 Two implementation-level concerns worth flagging for target authors:
 
-- **Unattended execution.** `@elicit` directives cannot pause a run with no human in the loop. Implementations targeting autonomous execution (schedulers, batch runners, Claude Code Routines) should document fallback defaults — see the [Claude Code Routines guide](https://docs.playbook.style/guides/claude-code-routines/#elicit-in-autonomous-runs) for a working convention. A proposed optional `default:` argument for `@elicit` is tracked at [#TBD](https://github.com/PLAYBOOK-MD/playbook-spec/issues).
+- **Unattended execution.** `@elicit` directives cannot pause a run with no human in the loop. Implementations targeting autonomous execution (schedulers, batch runners, Claude Code Routines) should document fallback defaults — see the [Claude Code Routines guide](https://docs.playbook.style/guides/claude-code-routines/#elicit-in-autonomous-runs) for a working convention. A proposed optional `default:` argument for `@elicit` is tracked at [#2](https://github.com/PLAYBOOK-MD/playbook-spec/issues/2).
 - **Extraction fidelity.** `@output(extract:"field")` implementations without a deterministic JSON parser in the loop (pure-LLM execution) occasionally miss the target field. Prefer `enum`-typed outputs for high-stakes branching when extraction is not guaranteed.
 
 ## Status
