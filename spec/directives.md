@@ -143,12 +143,17 @@ Pauses execution and collects input from a human operator. This enables review c
 @elicit(input, "prompt text")
 @elicit(confirm, "question?")
 @elicit(select, "prompt", "option1", "option2", "option3")
+
+# Optional default: argument for unattended execution (v0.2+)
+@elicit(input, "prompt text", default:"fallback")
+@elicit(confirm, "question?", default:"yes")
+@elicit(select, "prompt", "option1", "option2", "option3", default:"option1")
 ```
 
 ### Regex
 
 ```regex
-^@elicit\((\w+)(?:,\s*(.+))?\)$
+^@elicit\((\w+)(?:,\s*(.+?))?(?:,\s*default:"((?:[^"\\]|\\.)*)")?\)\s*$
 ```
 
 ### Types
@@ -192,6 +197,29 @@ For `select`: the first quoted string is the prompt, and all subsequent quoted s
 
 **Mixed steps:** If a step has both an `@elicit` and prompt content, the AI call runs after the user responds. The user's response is available as context.
 
+### Default Responses (v0.2+)
+
+An optional `default:"…"` trailing argument declares the response to use when `@elicit` is evaluated with no human available — autonomous cloud runs (Claude Code Routines), batch executors, schedulers. Interactive executors may surface the default as the pre-filled value.
+
+| Type | Valid `default:` values |
+|------|-------------------------|
+| `input` | Any string |
+| `confirm` | `"yes"` or `"no"` (case-insensitive at parse time; stored lowercase) |
+| `select` | One of the declared options (exact string match) |
+
+Validation:
+
+- **Warning** if `default:` is used with an unrecognized elicit type.
+- **Fatal error** if a `select` type has a `default:"…"` value not in the option list.
+
+Unattended executors **MUST** use the declared default when present. Interactive executors **MAY** pre-fill with the default. Absence of `default:` preserves v0.1 behavior (implementation chooses).
+
+### Backwards Compatibility
+
+- Pre-v0.2 parsers ignore the `default:` argument (warning).
+- Pre-v0.2 executors ignore the `default:` argument; autonomous targets fall back to per-implementation conventions.
+- Playbooks that don't use `default:` are unchanged.
+
 ### Example
 
 ```markdown
@@ -202,6 +230,11 @@ For `select`: the first quoted string is the prompt, and all subsequent quoted s
 ## STEP 3: Get Feedback
 
 @elicit(input, "What specific aspects should the revision focus on?")
+
+## STEP 4: Choose Severity (routine-safe)
+
+@elicit(select, "Severity?", "high", "medium", "low", default:"medium")
+@output(severity)
 ```
 
 ---
