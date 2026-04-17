@@ -132,6 +132,15 @@ code --install-extension playbook-md.playbook-vscode
 
 5. **Implementation freedom.** The spec defines the document format and execution semantics. How an implementation streams output, manages state, or connects to AI providers is not prescribed.
 
+## Execution Targets
+
+Playbooks run in a variety of environments: CLI tools, MCP servers embedded in editors, web runners, and autonomous cloud sessions like [Claude Code Routines](https://code.claude.com/docs/en/routines). The spec is deliberately silent on target-specific concerns (how an implementation streams, pauses, or resolves external prompt references) — see principle 5 above.
+
+Two implementation-level concerns worth flagging for target authors:
+
+- **Unattended execution.** `@elicit` directives cannot pause a run with no human in the loop. Implementations targeting autonomous execution (schedulers, batch runners, Claude Code Routines) should document fallback defaults — see the [Claude Code Routines guide](https://docs.playbook.style/guides/claude-code-routines/#elicit-in-autonomous-runs) for a working convention. A proposed optional `default:` argument for `@elicit` is tracked at [#2](https://github.com/PLAYBOOK-MD/playbook-spec/issues/2).
+- **Extraction fidelity.** `@output(extract:"field")` implementations without a deterministic JSON parser in the loop (pure-LLM execution) occasionally miss the target field. Prefer `enum`-typed outputs for high-stakes branching when extraction is not guaranteed.
+
 ## Status
 
 **Draft v0.1** — Extracted from a production implementation ([Promptmark](https://promptmark.ai)) where playbooks have been running in production since March 2026. This specification captures the format as-implemented and proposes it as an open standard.
