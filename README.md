@@ -134,7 +134,7 @@ code --install-extension playbook-md.playbook-vscode
 
 ## Execution Targets
 
-Playbooks run in a variety of environments: CLI tools, MCP servers embedded in editors, web runners, and autonomous cloud sessions like [Claude Code Routines](https://code.claude.com/docs/en/routines). The spec is deliberately silent on target-specific concerns (how an implementation streams, pauses, or resolves external prompt references) — see principle 5 above.
+Playbooks run in a variety of environments: CLI tools, MCP servers embedded in editors, web runners, autonomous cloud sessions like [Claude Code Routines](https://code.claude.com/docs/en/routines), and event-driven CI via [`PLAYBOOK-MD/playbook-native`](https://github.com/PLAYBOOK-MD/playbook-native) (GitHub Actions; standalone Node runtime). The spec is deliberately silent on target-specific concerns (how an implementation streams, pauses, or resolves external prompt references) — see principle 5 above.
 
 Two implementation-level concerns worth flagging for target authors:
 
