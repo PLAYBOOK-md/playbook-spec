@@ -1,0 +1,60 @@
+{
+  "valid": true,
+  "definition": {
+    "title": "Elicit with Default",
+    "description": "Playbook that exercises the optional default: argument on @elicit for all three types.",
+    "system_prompt": "",
+    "inputs": [],
+    "steps": [
+      {
+        "number": 1,
+        "label": "1",
+        "title": "Ask",
+        "content": "",
+        "output_var": "context",
+        "extract_field": "",
+        "elicitation": {
+          "type": "input",
+          "prompt": "Any extra context?",
+          "default": ""
+        },
+        "is_branching": false,
+        "line": 5
+      },
+      {
+        "number": 2,
+        "label": "2",
+        "title": "Confirm",
+        "content": "",
+        "output_var": "go",
+        "extract_field": "",
+        "elicitation": {
+          "type": "confirm",
+          "prompt": "Proceed?",
+          "default": "yes"
+        },
+        "is_branching": false,
+        "line": 10
+      },
+      {
+        "number": 3,
+        "label": "3",
+        "title": "Select",
+        "content": "",
+        "output_var": "focus",
+        "extract_field": "",
+        "elicitation": {
+          "type": "select",
+          "prompt": "Pick a focus",
+          "options": ["Cost", "Perf", "DX"],
+          "default": "Perf"
+        },
+        "is_branching": false,
+        "line": 15
+      }
+    ],
+    "artifact_type": ""
+  },
+  "warnings": [],
+  "errors": []
+}
